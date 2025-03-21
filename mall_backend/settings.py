@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users',
     'orders',
     'shops',
+    'rest_framework_simplejwt',
 ]
 
 REST_FRAMEWORK = {
@@ -47,9 +48,15 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-       'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+       'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 
+}
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME':timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME':timedelta(days=7),
+    'ROTATE_REFRESH_TOKEN': True,
 }
 
 MIDDLEWARE = [

@@ -1,10 +1,14 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 
 class CustomUser(AbstractUser):
-    ROLE_CHOICES = (
-        ('admin', 'Admin'),
-        ('shop_owner', 'Shop Owner'),
-        ('customer', 'Customer'),
+    groups = models.ManyToManyField(
+        Group,
+        related_name="customuser_set",  
+        blank=True
     )
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='customer')
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name="customuser_permissions_set", 
+        blank=True
+    )
